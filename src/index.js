@@ -1,13 +1,13 @@
-// // src/index.js
+import { initMongoConnection } from './db/initMongoDB.js';
+import { setUpServer } from './server.js';
+import { createDirIfNotExists } from './utils/createDirIfNotExists.js';
+import { TEMP_UPLOAD_DIR, UPLOAD_DIR } from './constants/index.js';
 
-// import express from 'express';
+const bootstrap = async () => {
+  await initMongoConnection();
+  await createDirIfNotExists(TEMP_UPLOAD_DIR);
+  await createDirIfNotExists(UPLOAD_DIR);
+  setUpServer();
+};
 
-// const app = express();
-
-// const PORT = 3000;
-
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
-
-console.log('Приложение запущено и работает!');
+void bootstrap();
